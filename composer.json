@@ -1,0 +1,20 @@
+{
+    "name": "jnjxp/molniya",
+    "description": "Simple flash messenger",
+    "homepage":"https://github.com/jnjxp/jnjxp.molniya",
+    "license": "AGPL",
+    "authors": [
+        {
+            "name": "jake johns",
+            "email": "jake@jakejohns.net"
+        }
+    ],
+    "require": {
+        "aura/session": "^2.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "Jnjxp\\Molniya\\": "src/"
+        }
+    }
+}
