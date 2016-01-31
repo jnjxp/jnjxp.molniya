@@ -79,6 +79,21 @@ class FlashMessengerFactory
     }
 
     /**
+     * Set Session
+     *
+     * @param Session $session DESCRIPTION
+     *
+     * @return mixed
+     *
+     * @access public
+     */
+    public function setSession(Session $session)
+    {
+        $this->session = $session;
+        return $this;
+    }
+
+    /**
      * GetSession
      *
      * @return mixed
