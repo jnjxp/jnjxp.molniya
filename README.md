@@ -1,5 +1,6 @@
 # jnjxp.molniya
-A simple flash messenger wrapped around [Aura\Session]
+Session handler middleware with a simple flash messenger wrapped around
+[Aura\Session]
 
 [![Latest version][ico-version]][link-packagist]
 [![Build Status][ico-travis]][link-travis]
@@ -15,6 +16,8 @@ composer require jnjxp/molniya
 ```php
 use Jnjxp\Molniya\FlashMessengerFactory;
 
+// Can create an instance like this,
+// but probably want to use the Session handler
 $factory = new FlashMessengerFactory();
 $messenger = $factory->newInstance();
 
@@ -92,6 +95,34 @@ $messenger->keep();
 
 ```
 
+### Session Handler
+```php
+// Create new handler
+use Jnjxp\Molniya\SessionHandler;
+
+$handler = new SessionHandler();
+// can also inject factories for Session and Messenger
+// $handler = new SessionHandler(
+//    new SessionFactory(),
+//    new FlashMessengerFactory()
+// );
+
+// optionally set attributes
+$handler->setSessionAttribute('session'); // default: aura/session:session
+$handler->setMessengerAttribute('messenger'); // default: jnjxp/molniya:messenger
+
+// optionally set mesenger namespace
+$handler->setMessengerNamespace('something'); // default: Jnjxp\Molniya
+
+// ...
+// after request has passed SessionHandler middleware
+// $handler($request, $response, $next);
+
+$session = $request->getAttribute('session');
+$messenger = $request->getAttribute('messenger');
+
+
+```
 
 
 [Aura\Session]: https://github.com/auraphp/Aura.Session
