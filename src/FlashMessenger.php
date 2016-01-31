@@ -22,7 +22,7 @@
  * @author    Jake Johns <jake@jakejohns.net>
  * @copyright 2016 Jake Johns
  * @license   http://www.gnu.org/licenses/agpl-3.0.txt AGPL V3
- * @link      http://jakejohns.net
+ * @link      https://github.com/jnjxp/jnjxp.molniya
  */
 
 namespace Jnjxp\Molniya;
@@ -36,7 +36,7 @@ use Aura\Session\SegmentInterface;
  * @package  Jnjxp\Molniya
  * @author   Jake Johns <jake@jakejohns.net>
  * @license  http://www.gnu.org/licenses/agpl-3.0.txt AGPL V3
- * @link     http://jakejohns.net
+ * @link     https://github.com/jnjxp/jnjxp.molniya
  */
 class FlashMessenger
 {
