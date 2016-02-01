@@ -28,7 +28,10 @@
 namespace Jnjxp\Molniya;
 
 use Aura\Session\SessionFactory;
+use Aura\Session\Session;
+
 use Jnjxp\Molniya\FlashMessengerFactory as MessengerFactory;
+use Jnjxp\Molniya\FlashMessenger as Messenger;
 
 use Psr\Http\Message\ServerRequestInterface as Request;
 use Psr\Http\Message\ResponseInterface as Response;
@@ -163,31 +166,84 @@ class SessionHandler
      */
     public function __invoke(Request $request, Response $response, callable $next)
     {
-        // Create Session
-        $session = $this->sessionFactory
-            ->newInstance($request->getCookieParams());
+        $session = $this->newSession($request);
+        $request = $this->setRequestSession($request, $session);
 
-        // Set session on request if attribute present
+        $messenger = $this->newMessenger($session);
+        $request = $this->setRequestMessenger($request, $messenger);
+
+        return $next($request, $response);
+    }
+
+    /**
+     * Create a new session from request
+     *
+     * @param Request $request PSR7 request
+     *
+     * @return Session
+     *
+     * @access protected
+     */
+    protected function newSession(Request $request)
+    {
+        return $this->sessionFactory->newInstance($request->getCookieParams());
+    }
+
+    /**
+     * Store session in request attribute if attributes present
+     *
+     * @param Request $request PSR7 request
+     * @param Session $session Session object
+     *
+     * @return Request
+     *
+     * @access protected
+     */
+    protected function setRequestSession(Request $request, Session $session)
+    {
         if ($this->sessionAttribute !== null) {
             $request = $request->withAttribute(
                 $this->sessionAttribute,
                 $session
             );
         }
+        return $request;
+    }
 
-        // Create Messenger with Session
-        $messenger = $this->messengerFactory
+    /**
+     * Create new messenger from session
+     *
+     * @param Session $session Session object
+     *
+     * @return Messenger
+     *
+     * @access protected
+     */
+    protected function newMessenger(Session $session)
+    {
+        return $this->messengerFactory
             ->setSession($session)
             ->newInstance($this->messengerNamespace);
+    }
 
-        // Set messenger on request if attribute present
+    /**
+     * Set messenger as request attribute if attribute preesent
+     *
+     * @param Request   $request   DESCRIPTION
+     * @param Messenger $messenger DESCRIPTION
+     *
+     * @return Request
+     *
+     * @access protected
+     */
+    protected function setRequestMessenger(Request $request, Messenger $messenger)
+    {
         if ($this->messengerAttribute !== null) {
             $request = $request->withAttribute(
                 $this->messengerAttribute,
                 $messenger
             );
         }
-
-        return $next($request, $response);
+        return $request;
     }
 }
