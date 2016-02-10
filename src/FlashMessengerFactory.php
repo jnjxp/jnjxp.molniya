@@ -31,7 +31,7 @@ use Aura\Session\Session;
 use Aura\Session\SessionFactory;
 
 /**
- * FlashMessengerFactory
+ * Flash Messenger Factory
  *
  * @category Factory
  * @package  Jnjxp\Molniya
@@ -42,7 +42,7 @@ use Aura\Session\SessionFactory;
 class FlashMessengerFactory
 {
     /**
-     * Session
+     * Aura Session
      *
      * @var Session
      *
@@ -51,9 +51,9 @@ class FlashMessengerFactory
     protected $session;
 
     /**
-     * __construct
+     * Create a new flash messenger factory
      *
-     * @param Session $session DESCRIPTION
+     * @param Session $session Optional session from which to get the segment
      *
      * @access public
      */
@@ -63,7 +63,7 @@ class FlashMessengerFactory
     }
 
     /**
-     * NewInstance
+     * Create a new flash messenger
      *
      * @param string $name Segment namespace
      *
@@ -81,7 +81,7 @@ class FlashMessengerFactory
     /**
      * Set Session
      *
-     * @param Session $session DESCRIPTION
+     * @param Session $session Session instance from which to get segment
      *
      * @return mixed
      *
@@ -94,9 +94,9 @@ class FlashMessengerFactory
     }
 
     /**
-     * GetSession
+     * Get the session or create a new default one if one not set
      *
-     * @return mixed
+     * @return Session
      *
      * @access protected
      */

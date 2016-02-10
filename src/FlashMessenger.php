@@ -41,7 +41,7 @@ use Aura\Session\SegmentInterface;
 class FlashMessenger
 {
     /**
-     * Key
+     * Key to store the messages under in the session
      *
      * @var string
      *
@@ -50,7 +50,7 @@ class FlashMessenger
     protected $key = 'messages';
 
     /**
-     * Container
+     * Temporary container for messages
      *
      * @var array
      *
@@ -59,7 +59,7 @@ class FlashMessenger
     protected $container = [];
 
     /**
-     * Segment
+     * Aura\Session\Segment to use for message storage and retrival
      *
      * @var SegmentInterface
      *
@@ -99,8 +99,8 @@ class FlashMessenger
     /**
      * Set all messages for a level
      *
-     * @param string $messages Array of messages
-     * @param string $level    Message level. Default: info
+     * @param string|array $messages Array of messages
+     * @param string       $level    Message level. Default: info
      *
      * @return $this
      *
