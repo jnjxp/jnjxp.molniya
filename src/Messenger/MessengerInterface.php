@@ -17,7 +17,7 @@
  * @link      https://github.com/jnjxp/jnjxp.molniya
  */
 
-namespace Jnjxp\Molniya;
+namespace Jnjxp\Molniya\Messenger;
 
 /**
  * MessengerInterface
@@ -30,62 +30,86 @@ namespace Jnjxp\Molniya;
  *
  * @see MessengerInterface
  */
-interface MessengerInterface
+interface MessengerInterface extends \Traversable, \Countable
 {
+
+    /**
+     * Do we have messages?
+     *
+     * @return bool
+     *
+     * @access public
+     */
+    public function exist() : bool;
+
+    /**
+     * Add message
+     *
+     * @param MessageInterface $message DESCRIPTION
+     *
+     * @return void
+     *
+     * @access public
+     */
+    public function addMessage(Message\MessageInterface $message) : void;
+
     /**
      * Add a message
      *
      * @param string $message DESCRIPTION
      * @param string $context DESCRIPTION
      *
-     * @return void
+     * @return Message\MessageInterface
      *
      * @access public
      */
-    public function add(string $message, string $context = self::CONTEXT_INFO);
+    public function add(
+        string $message,
+        string $context = Message\Context::INFO
+    ) : Message\MessageInterface;
 
     /**
      * Add as message with context success
      *
      * @param string $message message to add
      *
-     * @return void
+     * @return Message\MessageInterface
      *
      * @access public
      */
-    public function success(string $message);
+    public function success(string $message) : Message\MessageInterface;
 
     /**
      * Add as message with context danger
      *
      * @param string $message message to add
      *
-     * @return void
+     * @return Message\MessageInterface
      *
      * @access public
      */
-    public function danger(string $message);
+    public function danger(string $message) : Message\MessageInterface;
 
     /**
      * Add as message with context warning
      *
      * @param string $message message to add
      *
-     * @return void
+     * @return Message\MessageInterface
      *
      * @access public
      */
-    public function warning(string $message);
+    public function warning(string $message) : Message\MessageInterface;
 
     /**
      * Add as message with context info
      *
      * @param string $message message to add
      *
-     * @return void
+     * @return Message\MessageInterface
      *
      * @access public
      */
-    public function info(string $message);
+    public function info(string $message) : Message\MessageInterface;
 
 }

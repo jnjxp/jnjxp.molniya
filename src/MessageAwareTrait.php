@@ -20,7 +20,6 @@
 namespace Jnjxp\Molniya;
 
 use Psr\Http\Message\ServerRequestInterface as Request;
-use Psr\Http\Message\ResponseInterface as Response;
 
 /**
  * MessageHandler
@@ -31,45 +30,42 @@ use Psr\Http\Message\ResponseInterface as Response;
  * @license  https://jnj.mit-license.org/ MIT License
  * @link     https://github.com/
  */
-class MessageHandler
+trait MessageAwareTrait
 {
-    const MESSAGE_ATTRIBUTE = Messenger\MessengerInterface::class;
-
-    protected $storage;
-
     /**
-     * __construct
+     * GetMessenger
      *
-     * @param StorageInterface $storage DESCRIPTION
+     * @param Request $request DESCRIPTION
+     *
+     * @return mixed
+     * @throws \Exception if no mesenger available
      *
      * @access public
      */
-    public function __construct(StorageInterface $storage)
+    public function getMessenger(Request $request)
     {
-        $this->storage = $storage;
+        $messenger = $request->getAttribute(MessageHandler::MESSENGER_ATTRIBUTE);
+        if (! $messenger instanceof Messenger\MessengerInterface) {
+            throw new \Exception('Invalid Messenger');
+        }
+        return $messenger;
     }
 
     /**
-     * __invoke
+     * SafeGetMessenger
      *
-     * @param Request  $request  DESCRIPTION
-     * @param Response $response DESCRIPTION
-     * @param callable $next     DESCRIPTION
+     * @param Request $request DESCRIPTION
      *
-     * @return Response
+     * @return mixed
      *
      * @access public
      */
-    public function __invoke(
-        Request $request,
-        Response $response,
-        callable $next
-    ) : Response {
-
-        $this->storage->read($request);
-        $messenger = $this->storage->newMessenger($request);
-        $request   = $request->withAttribute(self::MESSAGE_ATTRIBUTE, $messenger);
-
-        return $next($request, $response);
+    public function safeGetMessenger(Request $request)
+    {
+        $messenger = $request->getAttribute(MessageHandler::MESSENGER_ATTRIBUTE);
+        if (! $messenger instanceof Messenger\MessengerInterface) {
+            $messenger = new Messenger\Messenger;
+        }
+        return $messenger;
     }
 }

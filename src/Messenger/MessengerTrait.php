@@ -17,9 +17,7 @@
  * @link      https://github.com/jnjxp/jnjxp.molniya
  */
 
-namespace Jnjxp\Molniya;
-
-use ArrayObject;
+namespace Jnjxp\Molniya\Messenger;
 
 /**
  * Messenger
@@ -29,35 +27,34 @@ use ArrayObject;
  * @author   Jake Johns <jake@jakejohns.net>
  * @license  https://jnj.mit-license.org/ MIT License
  * @link     https://github.com/jnjxp/jnjxp.molniya
- *
- * @see MessengerInterface
  */
-class Messenger implements MessengerInterface
+trait MessengerTrait
 {
-    const CONTEXT_SUCCSS  = 'success';
-    const CONTEXT_DANGER  = 'danger';
-    const CONTEXT_WARNING = 'warning';
-    const CONTEXT_INFO    = 'info';
+
+    protected $message = Message\Message::class;
 
     /**
-     * Messages
+     * Add a message
      *
-     * @var ArrayObject
+     * @param string $message DESCRIPTION
      *
-     * @access protected
-     */
-    protected $messages;
-
-    /**
-     * __construct
-     *
-     * @param ArrayObject $messages DESCRIPTION
+     * @return void
      *
      * @access public
      */
-    public function __construct(ArrayObject $messages)
+    abstract public function addMessage(Message\MessageInterface $message) : void;
+
+
+    /**
+     * Has
+     *
+     * @return bool
+     *
+     * @access public
+     */
+    public function exist() : bool
     {
-        $this->messages = $messages;
+        return count($this) > 0;
     }
 
     /**
@@ -66,15 +63,18 @@ class Messenger implements MessengerInterface
      * @param string $message DESCRIPTION
      * @param string $context DESCRIPTION
      *
-     * @return void
+     * @return Message\MessageInterface
      *
      * @access public
      */
-    public function add(string $message, string $context = self::CONTEXT_INFO)
-    {
-        $this->messages->append(
-            new Messsage($message, $context)
-        );
+    public function add(
+        string $message,
+        string $context = Message\Context::INFO
+    ) : Message\MessageInterface {
+        $class   = $this->message;
+        $message = new $class($message, $context);
+        $this->addMessage($message);
+        return $message;
     }
 
     /**
@@ -82,13 +82,13 @@ class Messenger implements MessengerInterface
      *
      * @param string $message message to add
      *
-     * @return void
+     * @return Message\MessageInterface
      *
      * @access public
      */
-    public function success(string $message)
+    public function success(string $message) : Message\MessageInterface
     {
-        $this->add($message, self::CONTEXT_SUCCSS);
+        $this->add($message, Message\Context::SUCCSS);
     }
 
     /**
@@ -96,13 +96,13 @@ class Messenger implements MessengerInterface
      *
      * @param string $message message to add
      *
-     * @return void
+     * @return Message\MessageInterface
      *
      * @access public
      */
-    public function danger(string $message)
+    public function danger(string $message) : Message\MessageInterface
     {
-        $this->add($message, self::CONTEXT_DANGER);
+        $this->add($message, Message\Context::DANGER);
     }
 
     /**
@@ -110,13 +110,13 @@ class Messenger implements MessengerInterface
      *
      * @param string $message message to add
      *
-     * @return void
+     * @return Message\MessageInterface
      *
      * @access public
      */
-    public function warning(string $message)
+    public function warning(string $message) : Message\MessageInterface
     {
-        $this->add($message, self::CONTEXT_WARNING);
+        $this->add($message, Message\Context::WARNING);
     }
 
     /**
@@ -124,12 +124,12 @@ class Messenger implements MessengerInterface
      *
      * @param string $message message to add
      *
-     * @return void
+     * @return Message\MessageInterface
      *
      * @access public
      */
-    public function info(string $message)
+    public function info(string $message) : Message\MessageInterface
     {
-        $this->add($message, self::CONTEXT_INFO);
+        $this->add($message, Message\Context::INFO);
     }
 }

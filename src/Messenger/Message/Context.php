@@ -9,37 +9,31 @@
  * This software may be modified and distributed under the terms
  * of the MIT license.  See the LICENSE file for details.
  *
- * @category  Factory
+ * @category  Trait
  * @package   Jnjxp\Molniya
  * @author    Jake Johns <jake@jakejohns.net>
  * @copyright 2017 Jake Johns
  * @license   http://jnj.mit-license.org/2017 MIT License
- * @link      http://jakejohns.net
+ * @link      https://github.com/jnjxp/jnjxp.molniya
  */
 
-namespace Jnjxp\Molniya;
-
-use Psr\Http\Message\ServerRequestInterface as Request;
+namespace Jnjxp\Molniya\Messenger\Message;
 
 /**
- * MessageFactoryInterface
+ * Context
  *
- * @category Factory
+ * @category Messenger
  * @package  Jnjxp\Molniya
  * @author   Jake Johns <jake@jakejohns.net>
  * @license  https://jnj.mit-license.org/ MIT License
- * @link     https://github.com/
+ * @link     https://github.com/jnjxp/jnjxp.molniya
+ *
+ * @see MessengerInterface
  */
-interface MessageFactoryInterface
+class Context
 {
-    /**
-     * Create Messenger from request
-     *
-     * @param Request $request PSR7 Request
-     *
-     * @return MessengerInterface
-     *
-     * @access public
-     */
-    public function fromRequest(Request $request) : MessengerInterface;
+    const SUCCSS  = 'success';
+    const DANGER  = 'danger';
+    const WARNING = 'warning';
+    const INFO    = 'info';
 }
