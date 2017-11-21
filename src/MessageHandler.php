@@ -33,7 +33,7 @@ use Psr\Http\Message\ResponseInterface as Response;
  */
 class MessageHandler
 {
-    const MESSAGE_ATTRIBUTE = Messenger\MessengerInterface::class;
+    const MESSENGER = Messenger\MessengerInterface::class;
 
     protected $storage;
 
