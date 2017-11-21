@@ -33,7 +33,7 @@ use Psr\Http\Message\ResponseInterface as Response;
  */
 class MessageHandler
 {
-    const MESSENGER = Messenger\MessengerInterface::class;
+    const MESSENGER_ATTRIBUTE = Messenger\MessengerInterface::class;
 
     protected $storage;
 
@@ -68,7 +68,7 @@ class MessageHandler
 
         $this->storage->read($request);
         $messenger = $this->storage->newMessenger($request);
-        $request   = $request->withAttribute(self::MESSAGE_ATTRIBUTE, $messenger);
+        $request   = $request->withAttribute(self::MESSENGER_ATTRIBUTE, $messenger);
 
         return $next($request, $response);
     }
