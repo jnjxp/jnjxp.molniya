@@ -1,26 +1,43 @@
 {
     "name": "jnjxp/molniya",
-    "description": "Simple flash messenger and session middleware",
+    "description": "Simple middleware and helper for flash messages",
     "homepage":"https://github.com/jnjxp/jnjxp.molniya",
-    "license": "AGPL",
+    "license": "MIT",
     "authors": [
         {
             "name": "jake johns",
             "email": "jake@jakejohns.net"
         }
     ],
+    "config": {
+        "sort-packages": true
+    },
     "require": {
-        "aura/session": "^2.0",
+        "php": "^7.1",
         "psr/http-message": "^1.0",
-        "vperyod/session-handler": "^0.3.0"
+        "zendframework/zend-expressive-flash": "^1.0",
+        "zendframework/zend-expressive-template": "^2.0"
     },
     "require-dev":{
-        "zendframework/zend-diactoros": "~1.0",
-        "phpstan/phpstan": "^0.8.5"
+        "pds/skeleton": "^1.0",
+        "phpunit/phpunit": "^8.2",
+        "zendframework/zend-diactoros": "~1.0"
     },
     "autoload": {
         "psr-4": {
             "Jnjxp\\Molniya\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Jnjxp\\Molniya\\": "tests/"
+        }
+    },
+    "extra": {
+        "zf": {
+            "config-provider": [
+                "Jnjxp\\Molniya\\ConfigProvider"
+            ]
         }
     }
 }
