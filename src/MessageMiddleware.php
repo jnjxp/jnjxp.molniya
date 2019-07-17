@@ -8,11 +8,13 @@ use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use Psr\Http\Server\MiddlewareInterface;
 use Psr\Http\Server\RequestHandlerInterface;
-use Zend\Expressive\Flash\FlashMessageMiddleware;
+use Zend\Expressive\Flash;
 use Zend\Expressive\Template\TemplateRendererInterface;
 
 class MessageMiddleware implements MiddlewareInterface
 {
+    public const VIEW_KEY = 'messages';
+
     protected $template;
 
     protected $factory;
@@ -24,8 +26,8 @@ class MessageMiddleware implements MiddlewareInterface
     public function __construct(
         TemplateRendererInterface $template,
         string $helper = MessageViewHelper::class,
-        string $flashKey = FlashMessageMiddleware::FLASH_ATTRIBUTE,
-        string $viewKey = 'messages'
+        string $flashKey = Flash\FlashMessageMiddleware::FLASH_ATTRIBUTE,
+        string $viewKey = self::VIEW_KEY
     ) {
         if (! class_exists($helper)
             || ! in_array(MessageViewHelperInterface::class, class_implements($helper), true)
@@ -44,7 +46,12 @@ class MessageMiddleware implements MiddlewareInterface
         RequestHandlerInterface $handler
     ) : ResponseInterface {
 
-        $flash  = $request->getAttribute($this->flashKey);
+        $flash  = $request->getAttribute($this->flashKey, false);
+
+        if (! $flash instanceof Flash\FlashMessagesInterface) {
+            throw new \Exception('Flash not available');
+        }
+
         $helper = ($this->factory)($flash);
         $this->addToView($helper);
 
