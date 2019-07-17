@@ -1,6 +1,5 @@
 # jnjxp.molniya
-Session handler middleware with a simple flash messenger wrapped around
-[Aura\Session]
+Middleware to make [Zend\Expressive\Flash] messages available in [Zend\Expressive\Template]
 
 [![Latest version][ico-version]][link-packagist]
 [![Build Status][ico-travis]][link-travis]
@@ -13,9 +12,15 @@ composer require jnjxp/molniya
 ```
 
 ## Usage
+Add `Jnjxp\Molniya\MessageMiddleware` to your pipeline after the session and
+flash middleware.
+
+Output `$messages` in your view script. e.g. `<?= $messages ?? ''; ?>`
 
 
-[Aura\Session]: https://github.com/auraphp/Aura.Session
+
+[Zend\Expressive\Flash]: https://github.com/zendframework/zend-expressive-flash
+[Zend\Expressive\Template]: https://github.com/zendframework/zend-expressive-template
 
 [ico-version]: https://img.shields.io/packagist/v/jnjxp/molniya.svg?style=flat-square
 [ico-travis]: https://img.shields.io/travis/jnjxp/jnjxp.molniya/master.svg?style=flat-square
