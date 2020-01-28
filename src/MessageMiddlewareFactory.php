@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace Jnjxp\Molniya;
 
 use Psr\Container\ContainerInterface;
-use Zend\Expressive\Template\TemplateRendererInterface;
+use Mezzio\Template\TemplateRendererInterface;
 
 class MessageMiddlewareFactory
 {

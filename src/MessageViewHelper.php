@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Jnjxp\Molniya;
 
-use Zend\Expressive\Flash\FlashMessagesInterface;
+use Mezzio\Flash\FlashMessagesInterface;
 
 class MessageViewHelper implements MessageViewHelperInterface
 {

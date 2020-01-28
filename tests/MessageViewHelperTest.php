@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace Jnjxp\Molniya;
 
 use PHPUnit\Framework\TestCase;
-use Zend\Expressive\Flash\FlashMessagesInterface;
+use Mezzio\Flash\FlashMessagesInterface;
 
 class MessageViewHelperTest extends TestCase
 {

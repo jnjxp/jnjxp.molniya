@@ -1,5 +1,5 @@
 # jnjxp.molniya
-Middleware to make [Zend\Expressive\Flash] messages available in [Zend\Expressive\Template]
+Middleware to make [Mezzio\Flash] messages available in [Mezzio\Template]
 
 [![Latest version][ico-version]][link-packagist]
 [![Build Status][ico-travis]][link-travis]
@@ -19,8 +19,8 @@ Output `$messages` in your view script. e.g. `<?= $messages ?? ''; ?>`
 
 
 
-[Zend\Expressive\Flash]: https://github.com/zendframework/zend-expressive-flash
-[Zend\Expressive\Template]: https://github.com/zendframework/zend-expressive-template
+[Mezzio\Flash]: https://github.com/mezzio/mezzio-flash
+[Mezzio\Template]: https://github.com/mezzio/mezzio-template
 
 [ico-version]: https://img.shields.io/packagist/v/jnjxp/molniya.svg?style=flat-square
 [ico-travis]: https://img.shields.io/travis/jnjxp/jnjxp.molniya/master.svg?style=flat-square

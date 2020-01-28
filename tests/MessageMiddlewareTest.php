@@ -10,9 +10,9 @@ use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use Psr\Http\Server\RequestHandlerInterface;
 use stdClass;
-use Zend\Expressive\Template\TemplateRendererInterface;
-use Zend\Expressive\Flash\FlashMessageMiddleware;
-use Zend\Expressive\Flash\FlashMessages;
+use Mezzio\Template\TemplateRendererInterface;
+use Mezzio\Flash\FlashMessageMiddleware;
+use Mezzio\Flash\FlashMessages;
 
 class MessageMiddlewareTest extends TestCase
 {
